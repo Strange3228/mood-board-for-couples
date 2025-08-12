@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 
 export enum StorageKey {
     PlaceholderKey = 'PlaceholderKey',
+    DailyStats = 'DAILY_STATS',
 }
 
 @Injectable({

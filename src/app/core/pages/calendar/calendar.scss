@@ -1,0 +1,16 @@
+
+.calendar {
+  &__header, &__body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+    &-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid palegreen;
+
+      padding: 20px 0;
+    }
+  }
+}

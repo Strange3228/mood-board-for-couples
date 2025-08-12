@@ -1,0 +1,17 @@
+<div class="calendar">
+  <div class="calendar__header">
+    @for (day of dayNames; track $index) {
+      <div class="calendar__header-content">
+        {{ day }}
+      </div>
+    }
+  </div>
+
+  <div class="calendar__body">
+    @for (day of calendarUIDays; track $index) {
+      <div class="calendar__body-content">
+        {{ day.index }}
+      </div>
+    }
+  </div>
+</div>
