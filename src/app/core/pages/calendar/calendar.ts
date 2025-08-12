@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import { CalendarApiService } from './services/calendar.api.service';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { DAY_NAMES, ICalendarUIDate, IMonthToShow, MonthPositionAccordingToCurrent } from './models/calendar.model';
+import { DAY_NAMES, ICalendarUIDate, IMonthToShow } from './models/calendar.model';
 import { CalendarService } from './services/calendar.service';
 
 @Component({
@@ -11,31 +10,17 @@ import { CalendarService } from './services/calendar.service';
   styleUrl: './calendar.scss',
   providers: [CalendarApiService, CalendarService],
 })
-export class Calendar implements OnInit, OnDestroy {
-  public selectedMonth$: Observable<IMonthToShow>;
+export class Calendar {
+  public selectedMonth: Signal<IMonthToShow>;
 
   public dayNames: string[] = DAY_NAMES;
-  public calendarUIDays: ICalendarUIDate[] = [];
-
-  private destroySubject$: Subject<void> = new Subject();
+  public calendarUIDays: Signal<ICalendarUIDate[]>;
 
   constructor(
-    private calendarApi: CalendarApiService,
     private calendarService: CalendarService,
   ) {
-    this.selectedMonth$ = this.calendarApi.getMonthToShow$;
-  }
-
-  public ngOnInit(): void {
-    this.selectedMonth$.pipe(takeUntil(this.destroySubject$)).subscribe(
-      (value: IMonthToShow) => {
-        this.calendarUIDays = this.calendarService.generateCalendarDays(value);
-      }
+    this.calendarUIDays = computed(() =>
+      this.calendarService.generateCalendarDays(this.calendarService.getMonthToShow()),
     );
-  }
-
-  public ngOnDestroy(): void {
-    this.destroySubject$.next();
-    this.destroySubject$.complete();
   }
 }

@@ -1,9 +1,21 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal, Signal, WritableSignal } from "@angular/core";
 import { ICalendarUIDate, IMonthToShow, MonthPositionAccordingToCurrent } from "../models/calendar.model";
 import { getDayIndexInWeekStartsWithMonday } from "../../../../shared/utils/date-calculations.util";
 
 @Injectable()
 export class CalendarService {
+  private monthToShow: WritableSignal<IMonthToShow> = signal({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth(),
+  });
+
+  get getMonthToShow(): Signal<IMonthToShow> {
+    return this.monthToShow;
+  }
+
+  set setMonthToShow(data: IMonthToShow) {
+    this.monthToShow.set(data);
+  }
 
   public generateCalendarDays({ year, month }: IMonthToShow): ICalendarUIDate[] {
     const firstDayInMonthIndex = getDayIndexInWeekStartsWithMonday(

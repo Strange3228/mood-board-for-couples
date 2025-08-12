@@ -1,3 +1,5 @@
+
+
 <div class="calendar">
   <div class="calendar__header">
     @for (day of dayNames; track $index) {
@@ -8,7 +10,7 @@
   </div>
 
   <div class="calendar__body">
-    @for (day of calendarUIDays; track $index) {
+    @for (day of calendarUIDays(); track $index) {
       <div class="calendar__body-content">
         {{ day.index }}
       </div>
