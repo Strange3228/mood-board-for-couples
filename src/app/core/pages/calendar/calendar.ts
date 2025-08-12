@@ -14,8 +14,6 @@ import { CalendarService } from './services/calendar.service';
 export class Calendar implements OnInit, OnDestroy {
   public selectedMonth$: Observable<IMonthToShow>;
 
-  public firstDayInMonthIndex: number;
-  public numberOfDaysInMonth: number;
   public dayNames: string[] = DAY_NAMES;
   public calendarUIDays: ICalendarUIDate[] = [];
 
@@ -25,12 +23,11 @@ export class Calendar implements OnInit, OnDestroy {
     private calendarApi: CalendarApiService,
     private calendarService: CalendarService,
   ) {
+    this.selectedMonth$ = this.calendarApi.getMonthToShow$;
   }
 
   public ngOnInit(): void {
-    this.selectedMonth$ = this.calendarApi.getMonthToShow$;
-
-    this.calendarApi.getMonthToShow$.pipe(takeUntil(this.destroySubject$)).subscribe(
+    this.selectedMonth$.pipe(takeUntil(this.destroySubject$)).subscribe(
       (value: IMonthToShow) => {
         this.calendarUIDays = this.calendarService.generateCalendarDays(value);
       }
