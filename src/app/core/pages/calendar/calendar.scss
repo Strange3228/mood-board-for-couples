@@ -11,6 +11,11 @@
       border: 1px solid palegreen;
 
       padding: 20px 0;
+
+      &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
     }
   }
 }

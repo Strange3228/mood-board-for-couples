@@ -1,4 +1,8 @@
-
+<div class="month-selector">
+  <app-month-selector
+    [monthToShow]="calendarService.getMonthToShow()"
+  ></app-month-selector>
+</div>
 
 <div class="calendar">
   <div class="calendar__header">
@@ -11,7 +15,10 @@
 
   <div class="calendar__body">
     @for (day of calendarUIDays(); track $index) {
-      <div class="calendar__body-content">
+      <div
+        class="calendar__body-content"
+        [ngClass]="{'calendar__body-content--disabled': day.monthPos !== monthPos.Current}"
+      >
         {{ day.index }}
       </div>
     }

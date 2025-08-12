@@ -17,6 +17,20 @@ export class CalendarService {
     this.monthToShow.set(data);
   }
 
+  public changeMonthToNext(): void {
+    this.monthToShow.set({
+      year: this.monthToShow().year,
+      month: this.monthToShow().month + 1,
+    });
+  }
+
+  public changeMonthToPrev(): void {
+    this.monthToShow.set({
+      year: this.monthToShow().year,
+      month: this.monthToShow().month - 1,
+    });
+  }
+
   public generateCalendarDays({ year, month }: IMonthToShow): ICalendarUIDate[] {
     const firstDayInMonthIndex = getDayIndexInWeekStartsWithMonday(
       new Date(year, month, 1).getDay()

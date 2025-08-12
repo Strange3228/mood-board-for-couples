@@ -1,0 +1,11 @@
+<div class="month-selector">
+  <div class="month-selector__btn month-selector__btn--prev">
+    <button (click)="prevMonth()">Prev</button>
+  </div>
+
+  <div class="month-selector__title">{{ monthAsDate() | date : 'y MMMM' }}</div>
+
+  <div class="month-selector__btn month-selector__btn--next">
+    <button (click)="nextMonth()">Next</button>
+  </div>
+</div>
